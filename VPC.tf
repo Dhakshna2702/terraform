@@ -143,34 +143,6 @@ resource "aws_security_group" "pubsg" {
   }
 } 
 
-#create pub security group
-resource "aws_security_group" "pubsg" {
-  name        = "allow_from_myip"
-  description = "Allow the inbound traffic"
-  vpc_id      = aws_vpc.VPC.id
-
-  ingress {
-    description      = "RDP from VPC"
-    from_port        = 3389
-    to_port          = 3389
-    protocol         = "RDP"
-    cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
-    security_group_id = "sg-0987654321"
-  }
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  tags = {
-    Name = "stg-dhaksh-euwe1-web"
-  }
-}
-
 #create pvt security group
 resource "aws_security_group" "pvtsg" {
   name        = "allow_from_myip"
