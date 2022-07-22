@@ -128,6 +128,7 @@ resource "aws_security_group" "pubsg" {
     to_port          = 3389
     protocol         = "RDP"
     cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
+    security_group_id = "sg-0987654321"
   }
 
   egress {
